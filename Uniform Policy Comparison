@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>School Uniform Policy Cost Comparison</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            max-width: 100%;
+            background-color: #f5f7fa;
+            color: #333;
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: 2em;
+            margin: 15px 0;
+            text-align: center;
+            color: #2c3e50;
+            font-weight: 700;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h3 {
+            font-size: 1.3em;
+            margin: 15px 0 10px;
+            color: #34495e;
+            font-weight: 600;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            font-size: 16px;
+        }
+        th {
+            background-color: #3498db;
+            color: #fff;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .result, .school-breakdown {
+            margin-top: 20px;
+            font-size: 16px;
+            text-align: center;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #2ecc71;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            margin: 15px 0;
+        }
+        button:hover {
+            background-color: #27ae60;
+        }
+        button:active {
+            background-color: #27ae60;
+        }
+        input[type="number"] {
+            width: 80px;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            -webkit-appearance: none;
+            -moz-appearance: textfield;
+            background-color: #fff;
+            transition: border-color 0.3s ease;
+        }
+        input[type="number"]:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .price-table h4 {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-top: 0;
+            font-style: italic;
+        }
+        .price-table table {
+            background-color: #ecf0f1;
+        }
+        .price-table td:nth-child(2), .price-table td:nth-child(3) {
+            font-weight: 500;
+        }
+        hr {
+            border: 1px solid #ddd;
+            margin: 20px 0;
+        }
+
+        /* Mobile-specific styles (max-width: 600px) */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5em; }
+            h3 { font-size: 1.1em; }
+            table { font-size: 14px; }
+            th, td { padding: 8px; }
+            input[type="number"] { width: 60px; font-size: 14px; }
+            button { font-size: 14px; padding: 10px; }
+            .result, .school-breakdown { font-size: 14px; padding: 10px; }
+            .price-table table { display: block; }
+            .price-table table tr { display: block; margin-bottom: 10px; }
+            .price-table table td { display: block; width: 100% !important; }
+        }
+
+        /* Desktop styles (min-width: 601px) */
+        @media (min-width: 601px) {
+            .flex-container {
+                display: flex;
+                gap: 25px;
+                margin-bottom: 20px;
+            }
+            .flex-container table { width: 45%; }
+            .price-table table {
+                display: table;
+                width: 100%;
+            }
+            .price-table table td {
+                display: table-cell;
+                width: auto;
+            }
+            .price-table table td:nth-child(2) { width: 40%; }
+            .price-table table td:nth-child(3) { width: 40%; }
+        }
+    </style>
+</head>
+<body>
+    <h1>School Uniform Policy Cost Comparison</h1>
+    <h3>How Many Students Do You Have?</h3>
+    <table>
+        <tr><th>Student Type</th><th>Number of Students</th></tr>
+        <tr><td>5th-8th Grade Male</td><td><input type="number" id="m58" min="0"></td></tr>
+        <tr><td>5th-8th Grade Female</td><td><input type="number" id="f58" min="0"></td></tr>
+        <tr><td>Kindergarten-4th Grade Male</td><td><input type="number" id="mk4" min="0"></td></tr>
+        <tr><td>Kindergarten-4th Grade Female</td><td><input type="number" id="fk4" min="0"></td></tr>
+    </table>
+    <h3>How Many of Each Do you Buy Each Year?</h3>
+    <div class="flex-container">
+        <table>
+            <tr><th>Item</th><th>Quantity per Student</th></tr>
+            <tr><td>Polo Shirts</td><td><input type="number" id="polo" min="0"></td></tr>
+            <tr><td>Pants</td><td><input type="number" id="pants" min="0"></td></tr>
+            <tr><td>Shorts</td><td><input type="number" id="shorts" min="0"></td></tr>
+            <tr><td>Sweatshirts</td><td><input type="number" id="sweatshirt" min="0"></td></tr>
+            <tr><td>Gym Shirts</td><td><input type="number" id="gymShirt" min="0"></td></tr>
+            <tr><td>Gym Shorts</td><td><input type="number" id="gymShorts" min="0"></td></tr>
+            <tr><td>Gym Pants</td><td><input type="number" id="gymPants" min="0"></td></tr>
+            <tr><td>Fleece (New Policy Only)</td><td><input type="number" id="fleece" min="0"></td></tr>
+            <tr><td>Skirts (Females Only)</td><td><input type="number" id="skirts" min="0"></td></tr>
+            <tr><td>Jumpers (K-4th Females Only)</td><td><input type="number" id="jumpers" min="0"></td></tr>
+        </table>
+    </div>
+
+    <div class="price-table">
+        <h3>How Much Did You Pay For Your Current Items?</h3>
+        <h4>*Reference Prices Shown from Common Retailers</h4>
+        <table>
+            <tr><th>Item</th><th>Current Price ($)</th><th>New Policy Price ($)</th></tr>
+            <tr><td>Polo (5th-8th)</td><td><input type="number" id="polo_m58_curr" min="0" step="0.01" value="11.97"></td><td>$36.65</td></tr>
+            <tr><td>Polo (K-4th)</td><td><input type="number" id="polo_k4_curr" min="0" step="0.01" value="6.97"></td><td>$6.97</td></tr>
+            <tr><td>Pants (5th-8th)</td><td><input type="number" id="pants_m58_curr" min="0" step="0.01" value="12.98"></td><td>$12.98</td></tr>
+            <tr><td>Pants (K-4th)</td><td><input type="number" id="pants_k4_curr" min="0" step="0.01" value="9.98"></td><td>$9.98</td></tr>
+            <tr><td>Shorts (All)</td><td><input type="number" id="shorts_curr" min="0" step="0.01" value="8.79"></td><td>$8.79</td></tr>
+            <tr><td>Sweatshirt (All)</td><td><input type="number" id="sweatshirt_curr" min="0" step="0.01" value="18.00"></td><td>$33.30 (5th-8th) / $28.70 (K-4th)</td></tr>
+            <tr><td>Gym Shirt (All)</td><td><input type="number" id="gymShirt_curr" min="0" step="0.01" value="15.00"></td><td>$16.75 (5th-8th) / $16.15 (K-4th)</td></tr>
+            <tr><td>Gym Shorts (All)</td><td><input type="number" id="gymShorts_curr" min="0" step="0.01" value="5.00"></td><td>$18.35 (5th-8th) / $16.25 (K-4th)</td></tr>
+            <tr><td>Gym Pants (All)</td><td><input type="number" id="gymPants_curr" min="0" step="0.01" value="7.75"></td><td>$32.15 (5th-8th) / $27.60 (K-4th)</td></tr>
+            <tr><td>Skirt (All Females)</td><td><input type="number" id="skirts_curr" min="0" step="0.01" value="12.70"></td><td>$53.00 (5th-8th) / $49.90 (K-4th)</td></tr>
+            <tr><td>Jumper (K-4th Females)</td><td><input type="number" id="jumpers_curr" min="0" step="0.01" value="50.85"></td><td>$50.85</td></tr>
+            <tr><td>Fleece (New Policy Only)</td><td>N/A</td><td>$39.75 (5th-8th) / $28.10 (K-4th)</td></tr>
+        </table>
+    </div>
+
+    <button id="calculateButton">Calculate Costs</button>
+    <div id="result" class="result"></div>
+    <hr>
+    <div id="school-breakdown" class="school-breakdown"></div>
+
+    <script>
+        // Wait for DOM to load
+        document.addEventListener('DOMContentLoaded', function() {
+            const calculateButton = document.getElementById('calculateButton');
+            if (calculateButton) {
+                // Add event listeners for both click and touchstart
+                calculateButton.addEventListener('click', calculateCosts);
+                calculateButton.addEventListener('touchstart', calculateCosts);
+                console.log('Event listeners attached to calculateButton');
+            } else {
+                console.error('Calculate button not found');
+            }
+        });
+
+        // Prices for New Policy (hardcoded)
+        const newPrices = {
+            m58: { polo: 36.65, pants: 12.98, shorts: 8.79, sweatshirt: 33.30, gymShirt: 16.75, gymShorts: 18.35, gymPants: 32.15, fleece: 39.75 },
+            f58: { polo: 36.65, pants: 12.98, shorts: 8.79, sweatshirt: 33.30, gymShirt: 16.75, gymShorts: 18.35, gymPants: 32.15, fleece: 39.75, skirts: 53.00 },
+            mk4: { polo: 6.97, pants: 9.98, shorts: 8.79, sweatshirt: 28.70, gymShirt: 16.15, gymShorts: 16.25, gymPants: 27.60, fleece: 28.10 },
+            fk4: { polo: 6.97, pants: 9.98, shorts: 8.79, sweatshirt: 28.70, gymShirt: 16.15, gymShorts: 16.25, gymPants: 27.60, fleece: 28.10, skirts: 49.90, jumpers: 50.85 }
+        };
+
+        // Hardcoded class breakdown (non-editable)
+        const classBreakdown = {
+            Kindergarten: { males: 20, females: 21 },
+            '1st Grade': { males: 32, females: 28 },
+            '2nd Grade': { males: 24, females: 18 },
+            '3rd Grade': { males: 22, females: 24 },
+            '4th Grade': { males: 30, females: 25 },
+            '5th Grade': { males: 18, females: 23 },
+            '6th Grade': { males: 43, females: 15 },
+            '7th Grade': { males: 16, females: 21 },
+            '8th Grade': { males: 22, females: 25 }
+        };
+
+        function calculateCosts() {
+            console.log('calculateCosts function called');
+            try {
+                // Get student counts for individual calculation
+                const m58 = parseInt(document.getElementById('m58')?.value) || 0;
+                const f58 = parseInt(document.getElementById('f58')?.value) || 0;
+                const mk4 = parseInt(document.getElementById('mk4')?.value) || 0;
+                const fk4 = parseInt(document.getElementById('fk4')?.value) || 0;
+                const totalStudents = m58 + f58 + mk4 + fk4;
+                console.log(`Individual students: m58=${m58}, f58=${f58}, mk4=${mk4}, fk4=${fk4}, total=${totalStudents}`);
+
+                // Get item quantities
+                const qty = {
+                    polo: parseInt(document.getElementById('polo')?.value) || 0,
+                    pants: parseInt(document.getElementById('pants')?.value) || 0,
+                    shorts: parseInt(document.getElementById('shorts')?.value) || 0,
+                    sweatshirt: parseInt(document.getElementById('sweatshirt')?.value) || 0,
+                    gymShirt: parseInt(document.getElementById('gymShirt')?.value) || 0,
+                    gymShorts: parseInt(document.getElementById('gymShorts')?.value) || 0,
+                    gymPants: parseInt(document.getElementById('gymPants')?.value) || 0,
+                    fleece: parseInt(document.getElementById('fleece')?.value) || 0,
+                    skirts: parseInt(document.getElementById('skirts')?.value) || 0,
+                    jumpers: parseInt(document.getElementById('jumpers')?.value) || 0
+                };
+                console.log(`Quantities:`, qty);
+
+                // Get current policy prices from inputs
+                const currentPrices = {
+                    m58: {
+                        polo: parseFloat(document.getElementById('polo_m58_curr')?.value) || 0,
+                        pants: parseFloat(document.getElementById('pants_m58_curr')?.value) || 0,
+                        shorts: parseFloat(document.getElementById('shorts_curr')?.value) || 0,
+                        sweatshirt: parseFloat(document.getElementById('sweatshirt_curr')?.value) || 0,
+                        gymShirt: parseFloat(document.getElementById('gymShirt_curr')?.value) || 0,
+                        gymShorts: parseFloat(document.getElementById('gymShorts_curr')?.value) || 0,
+                        gymPants: parseFloat(document.getElementById('gymPants_curr')?.value) || 0
+                    },
+                    f58: {
+                        polo: parseFloat(document.getElementById('polo_m58_curr')?.value) || 0,
+                        pants: parseFloat(document.getElementById('pants_m58_curr')?.value) || 0,
+                        shorts: parseFloat(document.getElementById('shorts_curr')?.value) || 0,
+                        sweatshirt: parseFloat(document.getElementById('sweatshirt_curr')?.value) || 0,
+                        gymShirt: parseFloat(document.getElementById('gymShirt_curr')?.value) || 0,
+                        gymShorts: parseFloat(document.getElementById('gymShorts_curr')?.value) || 0,
+                        gymPants: parseFloat(document.getElementById('gymPants_curr')?.value) || 0,
+                        skirts: parseFloat(document.getElementById('skirts_curr')?.value) || 0
+                    },
+                    mk4: {
+                        polo: parseFloat(document.getElementById('polo_k4_curr')?.value) || 0,
+                        pants: parseFloat(document.getElementById('pants_k4_curr')?.value) || 0,
+                        shorts: parseFloat(document.getElementById('shorts_curr')?.value) || 0,
+                        sweatshirt: parseFloat(document.getElementById('sweatshirt_curr')?.value) || 0,
+                        gymShirt: parseFloat(document.getElementById('gymShirt_curr')?.value) || 0,
+                        gymShorts: parseFloat(document.getElementById('gymShorts_curr')?.value) || 0,
+                        gymPants: parseFloat(document.getElementById('gymPants_curr')?.value) || 0
+                    },
+                    fk4: {
+                        polo: parseFloat(document.getElementById('polo_k4_curr')?.value) || 0,
+                        pants: parseFloat(document.getElementById('pants_k4_curr')?.value) || 0,
+                        shorts: parseFloat(document.getElementById('shorts_curr')?.value) || 0,
+                        sweatshirt: parseFloat(document.getElementById('sweatshirt_curr')?.value) || 0,
+                        gymShirt: parseFloat(document.getElementById('gymShirt_curr')?.value) || 0,
+                        gymShorts: parseFloat(document.getElementById('gymShorts_curr')?.value) || 0,
+                        gymPants: parseFloat(document.getElementById('gymPants_curr')?.value) || 0,
+                        skirts: parseFloat(document.getElementById('skirts_curr')?.value) || 0,
+                        jumpers: parseFloat(document.getElementById('jumpers_curr')?.value) || 0
+                    }
+                };
+                console.log(`Current Prices:`, currentPrices);
+
+                // Calculate costs for Current Policy (individual)
+                let currentTotal = 0;
+                currentTotal += m58 * (qty.polo * currentPrices.m58.polo + qty.pants * currentPrices.m58.pants + qty.shorts * currentPrices.m58.shorts +
+                    qty.sweatshirt * currentPrices.m58.sweatshirt + qty.gymShirt * currentPrices.m58.gymShirt + qty.gymShorts * currentPrices.m58.gymShorts +
+                    qty.gymPants * currentPrices.m58.gymPants);
+                currentTotal += f58 * (qty.polo * currentPrices.f58.polo + qty.pants * currentPrices.f58.pants + qty.shorts * currentPrices.f58.shorts +
+                    qty.sweatshirt * currentPrices.f58.sweatshirt + qty.gymShirt * currentPrices.f58.gymShirt + qty.gymShorts * currentPrices.f58.gymShorts +
+                    qty.gymPants * currentPrices.f58.gymPants + qty.skirts * currentPrices.f58.skirts);
+                currentTotal += mk4 * (qty.polo * currentPrices.mk4.polo + qty.pants * currentPrices.mk4.pants + qty.shorts * currentPrices.mk4.shorts +
+                    qty.sweatshirt * currentPrices.mk4.sweatshirt + qty.gymShirt * currentPrices.mk4.gymShirt + qty.gymShorts * currentPrices.mk4.gymShorts +
+                    qty.gymPants * currentPrices.mk4.gymPants);
+                currentTotal += fk4 * (qty.polo * currentPrices.fk4.polo + qty.pants * currentPrices.fk4.pants + qty.shorts * currentPrices.fk4.shorts +
+                    qty.sweatshirt * currentPrices.fk4.sweatshirt + qty.gymShirt * currentPrices.fk4.gymShirt + qty.gymShorts * currentPrices.fk4.gymShorts +
+                    qty.gymPants * currentPrices.fk4.gymPants + qty.skirts * currentPrices.fk4.skirts + qty.jumpers * currentPrices.fk4.jumpers);
+                console.log(`Current Total (Individual): $${currentTotal.toFixed(2)}`);
+
+                // Calculate costs for New Policy (individual)
+                let newTotal = 0;
+                newTotal += m58 * (qty.polo * newPrices.m58.polo + qty.pants * newPrices.m58.pants + qty.shorts * newPrices.m58.shorts +
+                    qty.sweatshirt * newPrices.m58.sweatshirt + qty.gymShirt * newPrices.m58.gymShirt + qty.gymShorts * newPrices.m58.gymShorts +
+                    qty.gymPants * newPrices.m58.gymPants + qty.fleece * newPrices.m58.fleece);
+                newTotal += f58 * (qty.polo * newPrices.f58.polo + qty.pants * newPrices.f58.pants + qty.shorts * newPrices.f58.shorts +
+                    qty.sweatshirt * newPrices.f58.sweatshirt + qty.gymShirt * newPrices.f58.gymShirt + qty.gymShorts * newPrices.f58.gymShorts +
+                    qty.gymPants * newPrices.f58.gymPants + qty.fleece * newPrices.f58.fleece + qty.skirts * newPrices.f58.skirts);
+                newTotal += mk4 * (qty.polo * newPrices.mk4.polo + qty.pants * newPrices.mk4.pants + qty.shorts * newPrices.mk4.shorts +
+                    qty.sweatshirt * newPrices.mk4.sweatshirt + qty.gymShirt * newPrices.mk4.gymShirt + qty.gymShorts * newPrices.mk4.gymShorts +
+                    qty.gymPants * newPrices.mk4.gymPants + qty.fleece * newPrices.mk4.fleece);
+                newTotal += fk4 * (qty.polo * newPrices.fk4.polo + qty.pants * newPrices.fk4.pants + qty.shorts * newPrices.fk4.shorts +
+                    qty.sweatshirt * newPrices.fk4.sweatshirt + qty.gymShirt * newPrices.fk4.gymShirt + qty.gymShorts * newPrices.fk4.gymShorts +
+                    qty.gymPants * newPrices.fk4.gymPants + qty.fleece * newPrices.fk4.fleece + qty.skirts * newPrices.fk4.skirts + qty.jumpers * newPrices.fk4.jumpers);
+                console.log(`New Total (Individual): $${newTotal.toFixed(2)}`);
+
+                // Calculate difference (individual)
+                const difference = newTotal - currentTotal;
+                const percentIncrease = currentTotal > 0 ? ((difference / currentTotal) * 100).toFixed(2) : 0;
+                console.log(`Difference (Individual): $${difference.toFixed(2)} (${percentIncrease}%)`);
+
+                // Calculate tuition based on number of students (individual)
+                let tuition = 0;
+                if (totalStudents === 1) tuition = 6286;
+                else if (totalStudents === 2) tuition = 10685;
+                else if (totalStudents === 3) tuition = 13828;
+                else if (totalStudents === 4) tuition = 15714;
+                else if (totalStudents > 4) tuition = 15714 + (totalStudents - 4) * 860;
+                console.log(`Tuition (Individual): $${tuition.toFixed(2)} for ${totalStudents} students`);
+
+                // Calculate equivalent tuition increase percentage (individual)
+                const tuitionIncreasePercent = tuition > 0 ? ((difference / tuition) * 100).toFixed(2) : 0;
+                console.log(`Tuition Increase (Individual): ${tuitionIncreasePercent}%`);
+
+                // Get DOM elements once
+                const resultDiv = document.getElementById('result');
+                const breakdownDiv = document.getElementById('school-breakdown');
+
+                // Display individual results
+                if (resultDiv) {
+                    resultDiv.innerHTML = `
+                        <p><strong>Current Policy Total:</strong> $${currentTotal.toFixed(2)}</p>
+                        <p><strong>New Policy Total:</strong> $${newTotal.toFixed(2)}</p>
+                        <p><strong>Cost Increase:</strong> $${difference.toFixed(2)} (${percentIncrease}% of uniform cost)</p>
+                        <p><strong>Total Tuition (for ${totalStudents} students):</strong> $${tuition.toFixed(2)}</p>
+                        <p><strong>Equivalent Tuition Increase:</strong> ${tuitionIncreasePercent}%</p>
+                    `;
+                    console.log('Individual results displayed');
+                } else {
+                    console.error('Result div not found');
+                }
+
+                // Calculate costs for whole school
+                let schoolCurrentTotal = 0;
+                let schoolNewTotal = 0;
+                let gradeCosts = {};
+
+                // Iterate over each grade
+                for (const [grade, counts] of Object.entries(classBreakdown)) {
+                    const males = counts.males;
+                    const females = counts.females;
+
+                    // Current Policy Costs per Grade
+                    const currentGradeTotal = males * (qty.polo * currentPrices.mk4.polo + qty.pants * currentPrices.mk4.pants + qty.shorts * currentPrices.mk4.shorts +
+                        qty.sweatshirt * currentPrices.mk4.sweatshirt + qty.gymShirt * currentPrices.mk4.gymShirt + qty.gymShorts * currentPrices.mk4.gymShorts +
+                        qty.gymPants * currentPrices.mk4.gymPants) +
+                        females * (qty.polo * currentPrices.fk4.polo + qty.pants * currentPrices.fk4.pants + qty.shorts * currentPrices.fk4.shorts +
+                        qty.sweatshirt * currentPrices.fk4.sweatshirt + qty.gymShirt * currentPrices.fk4.gymShirt + qty.gymShorts * currentPrices.fk4.gymShorts +
+                        qty.gymPants * currentPrices.fk4.gymPants + qty.skirts * currentPrices.fk4.skirts + qty.jumpers * currentPrices.fk4.jumpers);
+                    schoolCurrentTotal += currentGradeTotal;
+
+                    // New Policy Costs per Grade (5th-8th grades use m58/f58)
+                    const isFifthToEighth = ['5th Grade', '6th Grade', '7th Grade', '8th Grade'].includes(grade);
+                    const newGradeTotal = males * (qty.polo * (isFifthToEighth ? newPrices.m58.polo : newPrices.mk4.polo) +
+                        qty.pants * (isFifthToEighth ? newPrices.m58.pants : newPrices.mk4.pants) +
+                        qty.shorts * (isFifthToEighth ? newPrices.m58.shorts : newPrices.mk4.shorts) +
+                        qty.sweatshirt * (isFifthToEighth ? newPrices.m58.sweatshirt : newPrices.mk4.sweatshirt) +
+                        qty.gymShirt * (isFifthToEighth ? newPrices.m58.gymShirt : newPrices.mk4.gymShirt) +
+                        qty.gymShorts * (isFifthToEighth ? newPrices.m58.gymShorts : newPrices.mk4.gymShorts) +
+                        qty.gymPants * (isFifthToEighth ? newPrices.m58.gymPants : newPrices.mk4.gymPants) +
+                        qty.fleece * (isFifthToEighth ? newPrices.m58.fleece : newPrices.mk4.fleece)) +
+                        females * (qty.polo * (isFifthToEighth ? newPrices.f58.polo : newPrices.fk4.polo) +
+                        qty.pants * (isFifthToEighth ? newPrices.f58.pants : newPrices.fk4.pants) +
+                        qty.shorts * (isFifthToEighth ? newPrices.f58.shorts : newPrices.fk4.shorts) +
+                        qty.sweatshirt * (isFifthToEighth ? newPrices.f58.sweatshirt : newPrices.fk4.sweatshirt) +
+                        qty.gymShirt * (isFifthToEighth ? newPrices.f58.gymShirt : newPrices.fk4.gymShirt) +
+                        qty.gymShorts * (isFifthToEighth ? newPrices.f58.gymShorts : newPrices.fk4.gymShorts) +
+                        qty.gymPants * (isFifthToEighth ? newPrices.f58.gymPants : newPrices.fk4.gymPants) +
+                        qty.fleece * (isFifthToEighth ? newPrices.f58.fleece : newPrices.fk4.fleece) +
+                        qty.skirts * (isFifthToEighth ? newPrices.f58.skirts : newPrices.fk4.skirts) +
+                        qty.jumpers * (grade === '4th Grade' ? newPrices.fk4.jumpers : 0));
+                    schoolNewTotal += newGradeTotal;
+
+                    gradeCosts[grade] = { current: currentGradeTotal, new: newGradeTotal };
+                }
+
+                // Calculate school-wide difference and percentage increase
+                const schoolDifference = schoolNewTotal - schoolCurrentTotal;
+                const schoolPercentIncrease = schoolCurrentTotal > 0 ? ((schoolDifference / schoolCurrentTotal) * 100).toFixed(2) : 0;
+
+                // Calculate Total Value of Items from Supplier
+                let supplierTotalValue = 0;
+                for (const [grade, counts] of Object.entries(classBreakdown)) {
+                    const males = counts.males;
+                    const females = counts.females;
+                    const isFifthToEighth = ['5th Grade', '6th Grade', '7th Grade', '8th Grade'].includes(grade);
+
+                    // Items from supplier: All except pants, shorts, and K-4th polos
+                    const costPerMale = males * (
+                        (isFifthToEighth ? qty.polo * newPrices.m58.polo : 0) + // Polo only for 5th-8th
+                        qty.sweatshirt * (isFifthToEighth ? newPrices.m58.sweatshirt : newPrices.mk4.sweatshirt) +
+                        qty.gymShirt * (isFifthToEighth ? newPrices.m58.gymShirt : newPrices.mk4.gymShirt) +
+                        qty.gymPants * (isFifthToEighth ? newPrices.m58.gymPants : newPrices.mk4.gymPants) +
+                        qty.fleece * (isFifthToEighth ? newPrices.m58.fleece : newPrices.mk4.fleece)
+                    );
+                    const costPerFemale = females * (
+                        (isFifthToEighth ? qty.polo * newPrices.f58.polo : 0) + // Polo only for 5th-8th
+                        qty.sweatshirt * (isFifthToEighth ? newPrices.f58.sweatshirt : newPrices.fk4.sweatshirt) +
+                        qty.gymShirt * (isFifthToEighth ? newPrices.f58.gymShirt : newPrices.fk4.gymShirt) +
+                        qty.gymPants * (isFifthToEighth ? newPrices.f58.gymPants : newPrices.fk4.gymPants) +
+                        qty.fleece * (isFifthToEighth ? newPrices.f58.fleece : newPrices.fk4.fleece) +
+                        qty.skirts * (isFifthToEighth ? newPrices.f58.skirts : newPrices.fk4.skirts) +
+                        (grade === '4th Grade' ? qty.jumpers * newPrices.fk4.jumpers : 0) // Jumpers only for K-4th, max 4th Grade
+                    );
+                    supplierTotalValue += costPerMale + costPerFemale;
+                }
+                console.log(`Supplier Total Value (before rounding): ${supplierTotalValue}`);
+
+                // Calculate Total Rebate for IHM (4% of supplier total)
+                const rebateTotal = supplierTotalValue * 0.04;
+                console.log(`Total Rebate for IHM (before rounding): ${rebateTotal}`);
+
+                // Display school breakdown with supplier total and rebate
+                if (breakdownDiv) {
+                    let breakdownHtml = '<h3>Whole School Breakdown</h3>';
+                    breakdownHtml += '<p><strong>Total Students:</strong> 427</p>';
+                    for (const [grade, costs] of Object.entries(gradeCosts)) {
+                        breakdownHtml += `<p><strong>${grade}</strong>: Current $ ${costs.current.toFixed(2)}, New $ ${costs.new.toFixed(2)}</p>`;
+                    }
+                    breakdownHtml += `<p><strong>Total Current Policy Cost (Whole School):</strong> $${schoolCurrentTotal.toFixed(2)}</p>`;
+                    breakdownHtml += `<p><strong>Total New Policy Cost (Whole School):</strong> $${schoolNewTotal.toFixed(2)}</p>`;
+                    breakdownHtml += `<p><strong>Cost Increase (Whole School):</strong> $${schoolDifference.toFixed(2)} (${schoolPercentIncrease}%)</p>`;
+                    breakdownHtml += `<p><strong>Total Value of Items from Supplier:</strong> $${supplierTotalValue.toFixed(2)}</p>`;
+                    breakdownHtml += `<p><strong>Total Rebate for IHM (4%):</strong> $${rebateTotal.toFixed(2)}</p>`;
+                    breakdownHtml += `<p><em>*Calculations for the whole school are what it would look like if everyone shopped like you.</em></p>`;
+                    breakdownDiv.innerHTML = breakdownHtml;
+                    console.log('School breakdown displayed with supplier total and rebate');
+                } else {
+                    console.error('School breakdown div not found');
+                }
+
+                // Display individual results
+                if (resultDiv) {
+                    resultDiv.innerHTML = `
+                        <p><strong>Current Policy Total:</strong> $${currentTotal.toFixed(2)}</p>
+                        <p><strong>New Policy Total:</strong> $${newTotal.toFixed(2)}</p>
+                        <p><strong>Cost Increase:</strong> $${difference.toFixed(2)} (${percentIncrease}% of uniform cost)</p>
+                        <p><strong>Total Tuition (for ${totalStudents} students):</strong> $${tuition.toFixed(2)}</p>
+                        <p><strong>Equivalent Tuition Increase:</strong> ${tuitionIncreasePercent}%</p>
+                    `;
+                    console.log('Individual results displayed');
+                } else {
+                    console.error('Result div not found');
+                }
+            } catch (error) {
+                document.getElementById('result').innerHTML = `<p>Error: ${error.message}. Please check your inputs and try again.</p>`;
+                console.error('Calculation error:', error.stack);
+                alert(`Calculation failed: ${error.message}`); // Alert for visibility
+            }
+        }
+    </script>
+</body>
+</html>
